@@ -1,0 +1,19 @@
+{
+  "name": "gamejam23",
+  "version": "1.0.0",
+  "description": "A game jam",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Asib27/SaveYouFromYou.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Asib27/SaveYouFromYou/issues"
+  },
+  "homepage": "https://github.com/Asib27/SaveYouFromYou#readme"
+}
