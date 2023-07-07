@@ -34,8 +34,6 @@ class Astronaut {
 
         stroke(220)
         image(this.img, x, y, this.width, this.height);
-        noFill();
-        rect(x, y, this.width, this.height);
 
         this.pos.add(this.vel);
 
@@ -69,10 +67,10 @@ class Astronaut {
             }
         });
 
-        const endPoint = p5.Vector.add(this.center(), p5.Vector.mult(this.resultant, 800));
-        stroke(200)
-        drawingContext.setLineDash([3,6]);
-        line(endPoint.x, endPoint.y, this.center().x, this.center().y);
+        // const endPoint = p5.Vector.add(this.center(), p5.Vector.mult(this.resultant, 800));
+        // stroke(200)
+        // drawingContext.setLineDash([3,6]);
+        // // line(endPoint.x, endPoint.y, this.center().x, this.center().y);
     }
 
     center() {

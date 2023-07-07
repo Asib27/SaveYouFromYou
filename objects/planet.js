@@ -1,14 +1,18 @@
 class Planet {
 
-    constructor(pos, vel, r) {
+    constructor(pos, vel, r, img) {
         this.pos = pos;
         this.vel = vel;
         this.r = r;
+        this.img = img;
     }
 
     draw() {
-        stroke(1);
-        fill(0,255,0);
+        if (this.img) {
+            image(this.img, this.pos.x - this.r/2, this.pos.y-this.r/2, this.r, this.r); 
+        }
+        noStroke();
+        noFill();
         circle(this.pos.x, this.pos.y, this.r);
     }
 
