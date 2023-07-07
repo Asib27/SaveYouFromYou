@@ -74,4 +74,33 @@ class Planet {
             astronaut.a = createVector(0,0);
         }
     }
+
+    detectPlanetCollison(planet) {
+
+        let dis = this.pos.dist(planet.pos);
+        let minDis = this.r/2 + planet.r/2;
+
+        if(dis <= minDis) return true;
+        return false;
+    }
+
+
+    handlePlanetCollision(planet) {
+
+        // console.log("coll");
+        
+        if(this.type === "helper") {
+            
+            if(planet.type === "earth") {
+                run = false;
+                alert("YOU! The destroyer of earth");
+            } else if(planet.type === "splitter") {
+                //split function
+            } else {
+                console.log("Should stuck on that direction");
+            }
+
+        }
+
+    }
 }
