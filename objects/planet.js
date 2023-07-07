@@ -25,9 +25,11 @@ class Planet {
         }
 
         if(this.type === "earth"){
+            run =  false;
             alert("you won");
         }
         else if(this.type == "helper"){
+            run = false;
             alert("you lose");
         }else{
             astronaut.vel.mult(-1);

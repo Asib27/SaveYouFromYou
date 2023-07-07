@@ -40,6 +40,9 @@ function draw() {
     astronaut.draw(planets);
 
 
+    if(run == false){
+        noloop();
+    }
 }
 
 function addPlanet(x,y,r) {
