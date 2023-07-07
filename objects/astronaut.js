@@ -54,7 +54,31 @@ class Astronaut {
 
     detectCollision(planet) {
         // TODO: better collision detect: https://editor.p5js.org/mrbombmusic/sketches/l95s9fZJY
-        return dist(this.center().x, this.center().y, planet.pos.x, planet.pos.y) < planet.r;
+        // return dist(this.center().x, this.center().y, planet.pos.x, planet.pos.y) < planet.r;
+        let cx = planet.pos.x;
+        let cy = planet.pos.y;
+        let rad = planet.r / 2;
+
+        let rx = this.pos.x;
+        let ry = this.pos.y;
+        let rw = this.width;
+        let rh = this.height;
+
+        let testX = cx;
+        let testY = cy;
+
+        if (cx < rx)         testX = rx;      // test left edge
+        else if (cx > rx+rw) testX = rx+rw;   // right edge
+        if (cy < ry)         testY = ry;      // top edge
+        else if (cy > ry+rh) testY = ry+rh;   // bottom edge
+  
+        let d = dist(cx, cy, testX, testY);
+        console.log(cx, cy, testX, testY, d, rad);
+  
+        if (d <= rad) {
+            return true;
+        }
+        return false;
     } 
 
     drawTrace(planets) {
