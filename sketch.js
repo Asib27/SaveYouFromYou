@@ -38,7 +38,7 @@ function setup() {
     planets.push(new Planet(createVector(100, 100), createVector(0,0), 70, planetImg[0]));
     planets.push(new Planet(createVector(400, 400), createVector(0,0), 70, planetImg[1]));
     planets.push(earth)
-    astronaut = new Astronaut(astronautImg, createVector(150, 250), 0.0003);
+    astronaut = new Astronaut(astronautImg, createVector(150, 450), 0.0003);
 
   }
   
@@ -47,14 +47,12 @@ function draw() {
 
     drawbg();
 
-    helper.pos = createVector(mouseX, mouseY);
-
     planets.forEach(planet => planet.draw(astronaut))
     astronaut.draw(planets);
 
 
     if(run == false){
-        noloop();
+        noLoop();
     }
 }
 
