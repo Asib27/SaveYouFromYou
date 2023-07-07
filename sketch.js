@@ -31,8 +31,8 @@ function setup() {
       randomPos.push({pos: pos, opacity: random(255), size: random(5)});
     }
 
-    helper = new Planet(createVector(200, 200), createVector(0,0), 80, planetImg[1]);
-    earth = new Planet(createVector(800, 400), createVector(0,0), 90, earthImg);
+    helper = new Planet(createVector(200, 200), createVector(0,0), 80, planetImg[1], "helper");
+    earth = new Planet(createVector(800, 400), createVector(0,0), 90, earthImg, "earth");
 
     planets.push(helper);
     planets.push(new Planet(createVector(100, 100), createVector(0,0), 70, planetImg[0]));
@@ -49,21 +49,13 @@ function draw() {
 
     helper.pos = createVector(mouseX, mouseY);
 
-    planets.forEach(planet => planet.draw())
+    planets.forEach(planet => planet.draw(astronaut))
     astronaut.draw(planets);
 
-    if (astronaut.detectCollision(earth)) {
-      run = false
-      console.log("You won");
-    }
 
-    if (astronaut.detectCollision(helper)) {
-      run = false
-      console.log("You lost");
+    if(run == false){
+        noloop();
     }
-
-    if (!run) noLoop()
-    else loop()
 }
 
 function addPlanet(x,y,r) {
