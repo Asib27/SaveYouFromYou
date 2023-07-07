@@ -49,8 +49,9 @@ function draw() {
 
     helper.pos = createVector(mouseX, mouseY);
 
+    astronaut.drawTrace(planets);
     planets.forEach(planet => planet.draw(astronaut))
-    astronaut.draw(planets);
+    astronaut.draw();
 
 
     if(run == false){
@@ -79,21 +80,12 @@ function drawbg() {
 
     if (loopCount === 10) {loopCount = 0;}
 
-    let fromColor = color(240,240,240, random(255));
-    let toColor = color(240,240,240, random(255));
+    let fromColor = color(240,240,240, random(240));
+    let toColor = color(240,240,240, random(240));
     let interColor = lerpColor(fromColor, toColor, 0.33);
     fill(interColor);
-    circle(star.pos.x, star.pos.y, random(5));
+    circle(star.pos.x, star.pos.y, random(3));
   
     
-
-    // if (loopCount == 0) {
-    //   star.size = random(5);
-    //   star.opacity = random(255);
-    // }
-
-    // noStroke();
-    // fill(240, 240, 240, star.opacity);
-    // circle(star.pos.x, star.pos.y, star.size);
   })
 }
