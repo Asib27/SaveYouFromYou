@@ -48,7 +48,7 @@ function draw() {
 
     drawbg();
 
-    helper.pos = createVector(mouseX, mouseY);
+    // helper.pos = createVector(mouseX, mouseY);
 
     astronaut.drawTrace(planets);
     planets.forEach(planet => planet.draw(astronaut))
