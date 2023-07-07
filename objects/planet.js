@@ -11,7 +11,7 @@ class Planet {
 
     draw(astronaut) {
         this.handleCollision(astronaut);
-        this.update();
+        // this.update();
         if (this.img) {
             if (this.type === "earth") {
                 image(this.img, this.pos.x - this.r/2 - 10, this.pos.y-this.r/2 - 10, this.r + 20, this.r + 20);
