@@ -12,7 +12,11 @@ class Planet {
         this.handleCollision(astronaut);
         this.update();
         if (this.img) {
-            image(this.img, this.pos.x - this.r/2, this.pos.y-this.r/2, this.r, this.r); 
+            if (this.type === "earth") {
+                image(this.img, this.pos.x - this.r/2 - 10, this.pos.y-this.r/2 - 10, this.r + 20, this.r + 20);
+            } else {
+                image(this.img, this.pos.x - this.r/2, this.pos.y-this.r/2, this.r, this.r);
+            }
         }
         noStroke();
         noFill();

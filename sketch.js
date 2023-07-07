@@ -18,8 +18,9 @@ let run = true;
 function preload() {
   astronautImg = loadImage('./assets/astronaut.png')
   earthImg = loadImage('./assets/earth.png')
-  planetImg.push(loadImage('./assets/planet.png'));
-  planetImg.push(loadImage('./assets/jupiter.png'));
+  planetImg.push(loadImage('./assets/planet1.png'));
+  planetImg.push(loadImage('./assets/planet2.png'));
+  planetImg.push(loadImage('./assets/planet3.png'));
 
 }
 
@@ -31,8 +32,8 @@ function setup() {
       randomPos.push({pos: pos, opacity: random(255), size: random(5)});
     }
 
-    helper = new Planet(createVector(200, 200), createVector(0,0), 80, planetImg[1], "helper");
-    earth = new Planet(createVector(800, 400), createVector(0,0), 90, earthImg, "earth");
+    helper = new Planet(createVector(200, 200), createVector(0,0), 80, planetImg[2], "helper");
+    earth = new Planet(createVector(800, 400), createVector(0,0), 80, earthImg, "earth");
 
     planets.push(helper);
     planets.push(new Planet(createVector(100, 100), createVector(0,0), 70, planetImg[0]));
@@ -55,7 +56,7 @@ function draw() {
 
 
     if(run == false){
-        noloop();
+        noLoop();
     }
 }
 
@@ -84,8 +85,14 @@ function drawbg() {
     let toColor = color(240,240,240, random(240));
     let interColor = lerpColor(fromColor, toColor, 0.33);
     fill(interColor);
+    stroke(interColor);
+    strokeWeight(1);
     circle(star.pos.x, star.pos.y, random(3));
   
-    
+    strokeWeight(6);
+    stroke(80, 80, 120, 200);
+    noFill()
+    drawingContext.setLineDash([5, 10, 30, 10]);
+    rect(0,0, width, height);
   })
 }
