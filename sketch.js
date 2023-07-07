@@ -36,7 +36,7 @@ function setup() {
 
     planets.push(helper);
     planets.push(new Planet(createVector(100, 100), createVector(0,0), 70, planetImg[0]));
-    planets.push(new Planet(createVector(400, 400), createVector(0,0), 70, planetImg[1]));
+    planets.push(new Planet(createVector(400, 400), createVector(0,0), 70, planetImg[1], "poisonous"));
     planets.push(earth)
     astronaut = new Astronaut(astronautImg, createVector(150, 250), 0.0003);
 

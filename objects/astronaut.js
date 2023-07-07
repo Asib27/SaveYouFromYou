@@ -11,6 +11,7 @@ class Astronaut {
         this.k = k;
         this.vel = createVector(0,0);
         this.a = createVector(0,0);
+        this.poisonous = 0;
     }
 
     draw(planets) {
@@ -32,8 +33,16 @@ class Astronaut {
         if (resetY) vely = 0
         this.vel = createVector(velx, vely)
 
-        stroke(220)
-        image(this.img, x, y, this.width, this.height);
+        if(this.poisonous > 0) {
+            push();
+            tint(0, 255, 0, max(0,255-this.poisonous));
+            fill(220);
+            image(this.img, x, y, this.width, this.height);
+            pop()
+        } else {
+            stroke(220)
+            image(this.img, x, y, this.width, this.height);
+        }
 
         this.pos.add(this.vel);
 

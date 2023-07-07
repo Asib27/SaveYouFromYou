@@ -33,9 +33,22 @@ class Planet {
             alert("you won");
         }
         else if(this.type == "helper"){
-            run = false;
-            alert("you lose");
-        }else{
+            astronaut.vel = createVector(0,0);
+            astronaut.poisonous += 5;
+            
+            if(astronaut.poisonous >= 255) {
+                run = false;
+                alert("you lose");
+            }
+        } else if(this.type == "poisonous"){
+            astronaut.vel = createVector(0,0);
+            astronaut.poisonous += 5;
+            
+            if(astronaut.poisonous >= 255) {
+                run = false;
+                alert("you lose");
+            }
+        } else{
             astronaut.vel.mult(-1);
             astronaut.a = createVector(0,0);
         }
