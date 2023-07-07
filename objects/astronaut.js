@@ -13,9 +13,9 @@ class Astronaut {
         this.a = createVector(0,0);
     }
 
-    draw(planets) {
+    draw() {
 
-        this.drawTrace(planets);
+        // this.drawTrace(planets);
         let x = this.pos.x;
         let y= this.pos.y;
         let resetX = false;
@@ -32,7 +32,7 @@ class Astronaut {
         if (resetY) vely = 0
         this.vel = createVector(velx, vely)
 
-        stroke(220)
+        stroke(220);
         image(this.img, x, y, this.width, this.height);
 
         this.pos.add(this.vel);
@@ -47,7 +47,6 @@ class Astronaut {
         if (vy < -this.maxVel) vy = -this.maxVel;
         this.vel = createVector(vx, vy);
 
-        // console.log(p5.Vector.angleBetween())
     }
 
     detectCollision(planet) {
@@ -84,7 +83,20 @@ class Astronaut {
             let force = this.evaluateForce(planet);
             if (p5.Vector.mag(force) > 0.6) {
                 this.resultant.add(force);
-                stroke(200)
+                strokeWeight(2);
+
+                let opacity = min(2, p5.Vector.mag(force))*120;
+                let strokeWidth = min(2, p5.Vector.mag(force))*2;
+                strokeWeight(strokeWidth);
+
+                if (planet.type === "earth") {
+                    stroke(100, 255, 100, opacity);
+                } else if (planet.type === "helper") {
+                    stroke(255, 100, 100, opacity);
+                } else {
+                    stroke(100, 100, 255, opacity);
+                }
+
                 drawingContext.setLineDash([3,6]);
                 line(planet.pos.x, planet.pos.y, this.center().x, this.center().y);
             }
