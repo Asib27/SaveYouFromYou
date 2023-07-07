@@ -73,7 +73,6 @@ class Astronaut {
         else if (cy > ry+rh) testY = ry+rh;   // bottom edge
   
         let d = dist(cx, cy, testX, testY);
-        console.log(cx, cy, testX, testY, d, rad);
   
         if (d <= rad) {
             return true;

@@ -20,8 +20,8 @@ function preload() {
 function setup() {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    helper = new Planet(createVector(200, 200), createVector(0,0), 80);
-    earth = new Planet(createVector(800, 400), createVector(0,0), 90);
+    helper = new Planet(createVector(200, 200), createVector(0,0), 80, "helper");
+    earth = new Planet(createVector(800, 400), createVector(0,0), 90, "earth");
 
     planets.push(helper);
     planets.push(new Planet(createVector(100, 100), createVector(0,0), 70));
@@ -36,21 +36,10 @@ function draw() {
 
     helper.pos = createVector(mouseX, mouseY);
 
-    planets.forEach(planet => planet.draw())
+    planets.forEach(planet => planet.draw(astronaut))
     astronaut.draw(planets);
 
-    if (astronaut.detectCollision(earth)) {
-      run = false
-      console.log("You won");
-    }
 
-    if (astronaut.detectCollision(helper)) {
-      run = false
-      console.log("You lost");
-    }
-
-    if (!run) noLoop()
-    else loop()
 }
 
 function addPlanet(x,y,r) {
