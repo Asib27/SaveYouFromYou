@@ -51,7 +51,13 @@ function draw() {
     // helper.pos = createVector(mouseX, mouseY);
 
     astronaut.drawTrace(planets);
-    planets.forEach(planet => planet.draw(astronaut))
+    planets.forEach(planet=>{
+      planet.draw(astronaut);
+      if(planet != helper && helper.detectPlanetCollison(planet)) {
+        helper.handlePlanetCollision(planet);
+      }
+    })
+
     astronaut.draw();
 
 
