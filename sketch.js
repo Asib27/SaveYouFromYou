@@ -18,8 +18,9 @@ let run = true;
 function preload() {
   astronautImg = loadImage('./assets/astronaut.png')
   earthImg = loadImage('./assets/earth.png')
-  planetImg.push(loadImage('./assets/planet.png'));
-  planetImg.push(loadImage('./assets/jupiter.png'));
+  planetImg.push(loadImage('./assets/planet1.png'));
+  planetImg.push(loadImage('./assets/planet2.png'));
+  planetImg.push(loadImage('./assets/planet3.png'));
 
 }
 
@@ -31,14 +32,14 @@ function setup() {
       randomPos.push({pos: pos, opacity: random(255), size: random(5)});
     }
 
-    helper = new Planet(createVector(200, 200), createVector(0,0), 80, planetImg[1], "helper");
-    earth = new Planet(createVector(800, 400), createVector(0,0), 90, earthImg, "earth");
+    helper = new Planet(createVector(200, 200), createVector(0,0), 80, planetImg[2], "helper");
+    earth = new Planet(createVector(800, 400), createVector(0,0), 80, earthImg, "earth");
 
     planets.push(helper);
     planets.push(new Planet(createVector(100, 100), createVector(0,0), 70, planetImg[0]));
     planets.push(new Planet(createVector(400, 400), createVector(0,0), 70, planetImg[1], "poisonous"));
     planets.push(earth)
-    astronaut = new Astronaut(astronautImg, createVector(150, 250), 0.0003);
+    astronaut = new Astronaut(astronautImg, createVector(150, 450), 0.0003);
 
   }
   
@@ -47,14 +48,16 @@ function draw() {
 
     drawbg();
 
-    helper.pos = createVector(mouseX, mouseY);
+    // helper.pos = createVector(mouseX, mouseY);
 
+    astronaut.drawTrace(planets);
     planets.forEach(planet => planet.draw(astronaut))
-    astronaut.draw(planets);
+    astronaut.draw();
 
 
     if(run == false){
-        noloop();
+        noLoop();
+        noLoop();
     }
 }
 
@@ -79,21 +82,18 @@ function drawbg() {
 
     if (loopCount === 10) {loopCount = 0;}
 
-    let fromColor = color(240,240,240, random(255));
-    let toColor = color(240,240,240, random(255));
+    let fromColor = color(240,240,240, random(240));
+    let toColor = color(240,240,240, random(240));
     let interColor = lerpColor(fromColor, toColor, 0.33);
     fill(interColor);
-    circle(star.pos.x, star.pos.y, random(5));
+    stroke(interColor);
+    strokeWeight(1);
+    circle(star.pos.x, star.pos.y, random(3));
   
-    
-
-    // if (loopCount == 0) {
-    //   star.size = random(5);
-    //   star.opacity = random(255);
-    // }
-
-    // noStroke();
-    // fill(240, 240, 240, star.opacity);
-    // circle(star.pos.x, star.pos.y, star.size);
+    strokeWeight(6);
+    stroke(80, 80, 120, 200);
+    noFill()
+    drawingContext.setLineDash([5, 10, 30, 10]);
+    rect(0,0, width, height);
   })
 }
