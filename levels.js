@@ -80,7 +80,7 @@ const getCurrentLevel = (index) => {
      
 
       {pos: createVector(500, 100), type: "decrease", r: 40},
-      {pos: createVector(100, 500), type: "increase", r: 55},
+      {pos: createVector(100, 500), type: "increase", r: 65},
 
 
     ],
