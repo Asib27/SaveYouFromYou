@@ -189,6 +189,7 @@ function draw() {
 
     if (life <= 0) {
       astronaut.poisonous+=5;
+      notiText = "You lost!!"
     }
 
     if (astronaut.poisonous > 0) {
