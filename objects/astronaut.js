@@ -21,16 +21,23 @@ class Astronaut {
         let y= this.pos.y;
         let resetX = false;
         let resetY = false;
+        
         if (x > CANVAS_WIDTH-this.width) {x = CANVAS_WIDTH-this.width; resetX = true;}
         if (y > CANVAS_HEIGHT-this.height) {y = CANVAS_HEIGHT-this.height; resetY = true}
         if (x < 0) {x = 0; resetX = true}
         if (y < 0) {y = 0; resetY = true}
+
+        if (resetX || resetY) {
+            life -= 20;
+            if (life <= 0) life = 0;
+        }
+
         this.pos = createVector(x,y);
         let velx = this.vel.x;
         let vely = this.vel.y;
 
-        if (resetX) velx = 0
-        if (resetY) vely = 0
+        if (resetX) velx = - 0.1*velx;
+        if (resetY) vely = -0.1*vely;
         this.vel = createVector(velx, vely)
 
         if(this.poisonous > 0) {
@@ -111,10 +118,14 @@ class Astronaut {
             }
         });
 
-        // const endPoint = p5.Vector.add(this.center(), p5.Vector.mult(this.resultant, 800));
-        // stroke(200)
-        // drawingContext.setLineDash([3,6]);
-        // // line(endPoint.x, endPoint.y, this.center().x, this.center().y);
+        let opacity = min(2, p5.Vector.mag(this.vel))*120;
+        let strokeWidth = min(2, p5.Vector.mag(this.vel))*1.5;
+        strokeWeight(strokeWidth);
+        const endPoint = p5.Vector.add(this.center(), p5.Vector.mult(this.vel, 80));
+        stroke(200, 200, 200, opacity);
+        drawingContext.setLineDash([30,0]);
+        line(this.center().x, this.center().y, endPoint.x, endPoint.y);
+        circle(endPoint.x, endPoint.y, strokeWidth*2);
     }
 
     center() {
@@ -129,5 +140,7 @@ class Astronaut {
 
         return forceVector;
     }
+
+    
 
 }

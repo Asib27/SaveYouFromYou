@@ -85,6 +85,8 @@ class Planet {
         if(this.type === "earth"){
             run =  false;
             alert("you won");
+            handleResetBtn();
+            // TODO: prompt 
         }
         else if(this.type == "helper"){
             astronaut.vel = createVector(0,0);
@@ -92,7 +94,9 @@ class Planet {
             
             if(astronaut.poisonous >= 255) {
                 run = false;
-                alert("you lose");
+                // alert("you lose");
+                handleResetBtn();
+                // TODO: prompt
             }
         } else if(this.type == "poisonous"){
             astronaut.vel = createVector(0,0);
@@ -101,8 +105,12 @@ class Planet {
             if(astronaut.poisonous >= 255) {
                 run = false;
                 alert("you lose");
+                handleResetBtn();
+                // TODO: prompt
             }
         } else{
+            life -= 20;
+            if (life <= 0) life = 0;
             astronaut.vel.mult(-1);
             astronaut.a = createVector(0,0);
         }
