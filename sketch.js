@@ -3,6 +3,7 @@ const CANVAS_HEIGHT = 600;
 
 let astronautImg;
 let earthImg;
+let lifeImg;
 
 let planets = [];
 let astronaut;
@@ -17,16 +18,19 @@ let currentLevel = 0;
 let newMenu = true;
 let pauseMenu = false;
 let level;
+let life = 200;
 
 const pauseBtn = document.getElementById('pauseBtn');
 const resetBtn = document.getElementById('resetBtn');
 const continueBtn = document.getElementById('continueBtn');
+const notificationBtn = document.getElementById('notificationBtn');
 
-
+const notificationText = document.getElementById('notificationText');
 const menu = document.getElementById('menu');
 const pauseMenuBox = document.getElementById('pauseMenu');
 const levelBox = document.getElementById('levelBox');
 const pauseResetMenu = document.getElementById('pauseReset');
+const notificationBox = document.getElementById('notification');
 
 const lvl1Btn = document.getElementById('lvl1');
 const lvl2Btn = document.getElementById('lvl2');
@@ -45,6 +49,12 @@ lvl5Btn.addEventListener('click', () => { currentLevel = 5; startGame(); });
 lvl6Btn.addEventListener('click', () => { currentLevel = 6; startGame(); });
 lvl7Btn.addEventListener('click', () => { currentLevel = 7; startGame(); });
 lvl8Btn.addEventListener('click', () => { currentLevel = 8; startGame(); });
+
+notificationBtn.addEventListener('click', () => {
+  notificationBox.style.display = 'none';
+  notificationBtn.style.display = 'none';
+  handleResetBtn();
+})
 
 pauseBtn.addEventListener('click', () => {
   pauseMenu = true;
@@ -74,7 +84,6 @@ function handleResetBtn() {
   pauseResetMenu.style.display = 'none';
 }
 
-
 function startGame() {
   level = getCurrentLevel(currentLevel-1);
   startNewLevel();
@@ -91,6 +100,7 @@ function preload() {
   planetImg.push(loadImage('./assets/planet1.png'));
   planetImg.push(loadImage('./assets/planet2.png'));
   planetImg.push(loadImage('./assets/planet3.png'));
+  lifeImg = loadImage('./assets/life.png');
 
 }
 
@@ -117,7 +127,7 @@ function setup() {
 
 function startNewLevel() {
 
-  console.log(level);
+  life = 200;
 
   planets = [];
 
@@ -147,13 +157,35 @@ function draw() {
       astronaut.drawTrace(planets);
     }
     planets.forEach(planet => {
-      console.log(planet.pos)
       planet.draw(astronaut)
     })
     if (astronaut.poisonous === 0) {
       helper.update();
     }
     astronaut.draw();
+
+    image(lifeImg, width/2-115, 4, 24, 24);
+    strokeWeight(6);
+    stroke(200);
+    drawingContext.setLineDash([30,0]);
+    line(width/2+30-115, 16, width/2+30-115+200, 16);
+    stroke("#fc4f4f");
+    line(width/2+30-115, 16, width/2+30-115+max(0, life), 16);
+
+    console.log(life)
+
+    if (life <= 0) {
+      astronaut.poisonous++;
+
+      if (astronaut.poisonous >= 255) {
+        alert("you lost");
+        handleResetBtn();
+      }
+    }
+
+    if (astronaut.poisonous > 0) {
+      showNotification("You lost!!")
+    }
 
 
     if(run){
@@ -185,4 +217,14 @@ function drawbg() {
     drawingContext.setLineDash([5, 10, 30, 10]);
     rect(0,0, width, height);
   })
+}
+
+function showNotification(text) {
+  // TODO: 1st line?? 
+  fill(50, 50, 50, astronaut.poisonous);
+  rect(0,0,width,height);
+  notificationBox.style.display = 'flex';
+  notificationText.innerText = text;
+  notificationBtn.style.display = 'block';
+  menu.style.display = 'none';
 }

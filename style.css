@@ -17,6 +17,10 @@ canvas {
   opacity: 0.7;
 }
 
+#notification {
+  display: none;
+}
+
 .menuItem {
   color: white;
   padding: 8px 20px;
