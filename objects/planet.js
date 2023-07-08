@@ -7,14 +7,39 @@ class Planet {
         this.r = r;
         this.type = type;
         this.img = img;
+        this.move = true;
     }
 
     draw(astronaut) {
         this.handleCollision(astronaut);
-        this.update();
+        // this.update();
         if (this.img) {
             if (this.type === "earth") {
                 image(this.img, this.pos.x - this.r/2 - 10, this.pos.y-this.r/2 - 10, this.r + 20, this.r + 20);
+            } else if(this.type === "helper") {
+
+                let x = this.pos.x;
+                let y= this.pos.y;
+
+                let resetX = false;
+                let resetY = false;
+
+                if (x > CANVAS_WIDTH-this.r/2) {x = CANVAS_WIDTH-this.r/2; resetX = true;}
+                if (y > CANVAS_HEIGHT-this.r/2) {y = CANVAS_HEIGHT-this.r/2; resetY = true}
+                if (x < this.r/2) {x = this.r/2; resetX = true}
+                if (y < this.r/2) {y = this.r/2; resetY = true}
+            
+                this.pos = createVector(x,y);
+
+                let velx = this.vel.x;
+                let vely = this.vel.y;
+
+                if (resetX) velx = 0
+                if (resetY) vely = 0
+                this.vel = createVector(velx, vely)
+
+                image(this.img, this.pos.x - this.r/2, this.pos.y-this.r/2, this.r, this.r);
+
             } else {
                 image(this.img, this.pos.x - this.r/2, this.pos.y-this.r/2, this.r, this.r);
             }
@@ -24,14 +49,22 @@ class Planet {
         circle(this.pos.x, this.pos.y, this.r);
     }
 
-    update() {
+    update(planets) {
+
         if(this.type === "helper"){
             let newMouse = createVector(mouseX, mouseY);
-            let dispVect = newMouse.sub(this.pos);
+            let dispVect = p5.Vector.sub(newMouse, this.pos);
             let mag = p5.Vector.mag(dispVect);
             let disp = dispVect.normalize();
 
-            if(mag >= 2){
+
+            planets.forEach(otherPlanet => {
+                if(otherPlanet.type != "helper" && this.detectPlanetCollison(otherPlanet)) {
+                    this.handlePlanetCollision(otherPlanet, newMouse);
+                }
+            })
+
+            if(mag >= 2 && this.move){
                 this.vel = p5.Vector.mult(disp, 2);
             }
             else{
@@ -85,7 +118,7 @@ class Planet {
     }
 
 
-    handlePlanetCollision(planet) {
+    handlePlanetCollision(planet, newMouse) {
 
         // console.log("coll");
         
@@ -97,10 +130,37 @@ class Planet {
             } else if(planet.type === "splitter") {
                 //split function
             } else {
-                console.log("Should stuck on that direction");
+
+                let dispVec = p5.Vector.sub(this.pos, planet.pos);
+                let newDisp = dispVec.normalize();
+
+                let collisionX = (this.pos.x * planet.r + planet.pos.x * this.r) / (this.r+ planet.r);
+                let collisionY = (this.pos.y * planet.r + planet.pos.y * this.r) / (this.r + planet.r);
+                
+                 // Calculate the tangent vector
+                let tangentVector = createVector(this.pos.y - planet.pos.y, planet.pos.x - this.pos.x);
+                tangentVector.normalize();
+
+                // the tangent line point
+                let tangentStartX = collisionX - tangentVector.x * 50;
+                let tangentStartY = collisionY - tangentVector.y * 50;
+                let tangentEndX = collisionX + tangentVector.x * 50;
+                let tangentEndY = collisionY + tangentVector.y * 50;
+                
+                let slope = (tangentEndY - tangentStartY) / (tangentEndX- tangentStartX);
+                let yIntercept = tangentStartY- slope * tangentStartX;
+
+                if(this.calculateLineValue(slope, yIntercept, planet.pos)*this.calculateLineValue(slope, yIntercept, newMouse) >= 0) { 
+                    this.move=false; 
+                } else {
+                    this.move=true;
+                }
             }
 
         }
+    }
 
+    calculateLineValue(slope, yIntercept, pos) {
+        return slope*pos.x + yIntercept - pos.y;
     }
 }
