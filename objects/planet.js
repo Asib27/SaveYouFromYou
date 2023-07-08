@@ -8,13 +8,21 @@ class Planet {
         this.type = type;
         this.img = img;
         this.move = true;
+        this.collidedLoopCount = false;
+
+        if (this.type === 'poisonous') {
+            this.img = poisonImg;
+        } else if (this.type === 'increase') {
+            this.img = plusPlanetImg;
+        }
     }
 
     draw(astronaut) {
+        if (this.type === 'poisonous') this.img = poisonImg;
         this.handleCollision(astronaut);
         // this.update();
         if (this.img) {
-            if (this.type === "earth") {
+            if (this.type === "earth" || this.type === "poisonous") {
                 image(this.img, this.pos.x - this.r/2 - 10, this.pos.y-this.r/2 - 10, this.r + 20, this.r + 20);
             } else if(this.type === "helper") {
 
@@ -44,6 +52,10 @@ class Planet {
                 image(this.img, this.pos.x - this.r/2, this.pos.y-this.r/2, this.r, this.r);
             }
         }
+        if (this.type === "increase") {
+            let size = min(this.r - 10, 20);
+            image(plusImg, this.pos.x - size/2, this.pos.y - size/2, size, size);
+        }
         noStroke();
         noFill();
         circle(this.pos.x, this.pos.y, this.r);
@@ -58,17 +70,30 @@ class Planet {
             let disp = dispVect.normalize();
 
 
+            
             planets.forEach(otherPlanet => {
-                if(otherPlanet.type != "helper" && this.detectPlanetCollison(otherPlanet)) {
+                if(otherPlanet.type !== "helper" && this.detectPlanetCollison(otherPlanet)) {
                     this.handlePlanetCollision(otherPlanet, newMouse, planets);
+                    if(!this.collidedLoopCount){
+                        this.collidedLoopCount = true;
+                        // loopCount = 0;
+                    }
                 }
             })
 
-            if(mag >= 2 && this.move){
+            if(mag >= 2){
                 this.vel = p5.Vector.mult(disp, 2);
             }
             else{
                 this.vel = p5.Vector.mult(disp, 0);
+            }
+
+            if(this.collidedLoopCount){
+                this.vel = p5.Vector.mult(disp, -4);
+            }
+
+            if(loopCount %500 === 0){
+                this.collidedLoopCount = false;
             }
             
         }
@@ -83,31 +108,20 @@ class Planet {
         }
 
         if(this.type === "earth"){
-            run =  false;
-            alert("you won");
-            handleResetBtn();
+            astronaut.vel = createVector(0,0);
+            astronaut.poisonous += 5;
+            notiText = "Congrats human! You have returned safely!"
             // TODO: prompt 
         }
         else if(this.type == "helper"){
             astronaut.vel = createVector(0,0);
             astronaut.poisonous += 5;
-            
-            if(astronaut.poisonous >= 255) {
-                run = false;
-                // alert("you lose");
-                handleResetBtn();
-                // TODO: prompt
-            }
+            notiText = "Sorry human, I help you but I have poison. Don't touch me!"
         } else if(this.type == "poisonous"){
             astronaut.vel = createVector(0,0);
             astronaut.poisonous += 5;
             
-            if(astronaut.poisonous >= 255) {
-                run = false;
-                alert("you lose");
-                handleResetBtn();
-                // TODO: prompt
-            }
+            notiText = "Dumb human! You bumped a poisonous planet!"
         } else{
             life -= 20;
             if (life <= 0) life = 0;
@@ -128,17 +142,19 @@ class Planet {
 
     handlePlanetCollision(planet, newMouse, planets) {
 
-        // console.log("coll");
-        
         if(this.type === "helper") {
             
             if(planet.type === "earth") {
-                run = false;
-                alert("YOU! The destroyer of earth");
+                astronaut.vel = createVector(0,0);
+                astronaut.poisonous += 5;
+                notiText = "Sorry little human, I destroyed your earth.";
+                showNotification();
             } else if(planet.type === "splitter") {
                 //split function
             } else if(planet.type === "increase") {
-                this.r += planet.r/3;
+                let area = PI*this.r*this.r + PI*planet.r*planet.r;
+                let radius = sqrt(area / PI);
+                this.r += radius;
                 this.removeObjectFromArray(planets, planet);
             } else if(planet.type === "decrease") {
                 this.r -= planet.r/3;

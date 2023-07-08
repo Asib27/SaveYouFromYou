@@ -1,10 +1,17 @@
 const CANVAS_WIDTH = 1200;
 const CANVAS_HEIGHT = 600;
 
+// images
 let astronautImg;
 let earthImg;
 let lifeImg;
+let poisonImg;
+let helperImg;
+let plusImg;
+let plusPlanetImg;
+let totalPlanetImage = 7;
 
+// characters
 let planets = [];
 let astronaut;
 let helper;
@@ -12,7 +19,9 @@ let earth;
 let planetImg = [];
 let randomPos = [];
 let loopCount = 0;
+let notiText = "";
 
+// stat variables
 let run = false;
 let currentLevel = 0;
 let newMenu = true;
@@ -20,11 +29,13 @@ let pauseMenu = false;
 let level;
 let life = 200;
 
+// buttons
 const pauseBtn = document.getElementById('pauseBtn');
 const resetBtn = document.getElementById('resetBtn');
 const continueBtn = document.getElementById('continueBtn');
 const notificationBtn = document.getElementById('notificationBtn');
 
+// show/hide div
 const notificationText = document.getElementById('notificationText');
 const menu = document.getElementById('menu');
 const pauseMenuBox = document.getElementById('pauseMenu');
@@ -97,11 +108,14 @@ function startGame() {
 function preload() {
   astronautImg = loadImage('./assets/astronaut.png')
   earthImg = loadImage('./assets/earth.png')
-  planetImg.push(loadImage('./assets/planet1.png'));
-  planetImg.push(loadImage('./assets/planet2.png'));
-  planetImg.push(loadImage('./assets/planet3.png'));
+  for (let i = 0; i < totalPlanetImage; i++) {
+    planetImg.push(loadImage(`./assets/planet${i+1}.png`));
+  }
   lifeImg = loadImage('./assets/life.png');
-
+  poisonImg = loadImage('./assets/poison.png');
+  helperImg = loadImage('./assets/helper.png');
+  plusImg = loadImage('./assets/plus.png');
+  plusPlanetImg = loadImage('./assets/plusPlanet.png');
 }
 
 function setup() {
@@ -112,7 +126,7 @@ function setup() {
       randomPos.push({pos: pos, opacity: random(255), size: random(5)});
     }
 
-    helper = new Planet(createVector(400, 400), createVector(0,0), 80, planetImg[2], "helper");
+    helper = new Planet(createVector(600, 400), createVector(0,0), 80, helperImg, "helper");
     earth = new Planet(createVector(800, 400), createVector(0,0), 80, earthImg, "earth");
 
     planets.push(helper);
@@ -131,12 +145,12 @@ function startNewLevel() {
 
   planets = [];
 
-  helper = new Planet(level.helper.pos, createVector(0,0), level.helper.r, planetImg[2], "helper");
+  helper = new Planet(level.helper.pos, createVector(0,0), level.helper.r, helperImg, "helper");
   earth = new Planet(level.earthPos, createVector(0,0), 80, earthImg, "earth");
 
   planets.push(helper);
   level.planets.forEach(planet => {
-    let randomIndex =Math.floor(random(3))
+    let randomIndex =Math.floor(random(totalPlanetImage))
     planets.push(new Planet(planet.pos, createVector(0,0), planet.r, planetImg[randomIndex], planet.type));
   })
   planets.push(earth)
@@ -148,8 +162,8 @@ function startNewLevel() {
 function draw() {
 
     background(10);
-
     drawbg();
+
 
     // helper.pos = createVector(mouseX, mouseY);
 
@@ -159,34 +173,32 @@ function draw() {
     planets.forEach(planet => {
       planet.draw(astronaut)
     })
-    if (astronaut.poisonous === 0) {
-      helper.update(planets);
-    }
     astronaut.draw();
 
-    image(lifeImg, width/2-115, 4, 24, 24);
-    strokeWeight(6);
-    stroke(200);
-    drawingContext.setLineDash([30,0]);
-    line(width/2+30-115, 16, width/2+30-115+200, 16);
-    stroke("#fc4f4f");
-    line(width/2+30-115, 16, width/2+30-115+max(0, life), 16);
-
-    console.log(life)
+    if (astronaut.poisonous === 0) {
+      image(lifeImg, width/2-115, 4, 24, 24);
+      strokeWeight(6);
+      stroke(200);
+      drawingContext.setLineDash([30,0]);
+      line(width/2+30-115, 16, width/2+30-115+200, 16);
+      stroke("#fc4f4f");
+      line(width/2+30-115, 16, width/2+30-115+max(0, life), 16);
+      
+    }
+    helper.update(planets);
 
     if (life <= 0) {
-      astronaut.poisonous++;
-
-      if (astronaut.poisonous >= 255) {
-        alert("you lost");
-        handleResetBtn();
-      }
+      astronaut.poisonous+=5;
     }
 
     if (astronaut.poisonous > 0) {
-      showNotification("You lost!!")
+      showNotification();
     }
 
+    if (astronaut.poisonous >= 255) {
+      astronaut.poisonous = 255;
+      run = false;
+    }
 
     if(run){
       loop();
@@ -201,7 +213,7 @@ function drawbg() {
 
     loopCount++;
 
-    if (loopCount === 10) {loopCount = 0;}
+    if (loopCount === 1000) {loopCount = 0;}
 
     let fromColor = color(240,240,240, random(240));
     let toColor = color(240,240,240, random(240));
@@ -219,12 +231,11 @@ function drawbg() {
   })
 }
 
-function showNotification(text) {
-  // TODO: 1st line?? 
+function showNotification() {
   fill(50, 50, 50, astronaut.poisonous);
   rect(0,0,width,height);
   notificationBox.style.display = 'flex';
-  notificationText.innerText = text;
+  notificationText.innerText = notiText;
   notificationBtn.style.display = 'block';
   menu.style.display = 'none';
 }

@@ -107,7 +107,7 @@ class Astronaut {
 
                 if (planet.type === "earth") {
                     stroke(100, 255, 100, opacity);
-                } else if (planet.type === "helper") {
+                } else if (planet.type === "helper" || planet.type === "poisonous") {
                     stroke(255, 100, 100, opacity);
                 } else {
                     stroke(100, 100, 255, opacity);
