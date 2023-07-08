@@ -16,6 +16,7 @@ let run = false;
 let currentLevel = 0;
 let newMenu = true;
 let pauseMenu = false;
+let level;
 
 const pauseBtn = document.getElementById('pauseBtn');
 const resetBtn = document.getElementById('resetBtn');
@@ -55,11 +56,7 @@ pauseBtn.addEventListener('click', () => {
 });
 
 resetBtn.addEventListener('click', () => {
-  menu.style.display = 'flex';
-  pauseMenuBox.style.display = 'none';
-  levelBox.style.display = 'flex';
-  run = false;
-  pauseResetMenu.style.display = 'none';
+  handleResetBtn();
 });
 
 continueBtn.addEventListener('click', () => {
@@ -69,9 +66,18 @@ continueBtn.addEventListener('click', () => {
   draw();
 })
 
+function handleResetBtn() {
+  menu.style.display = 'flex';
+  pauseMenuBox.style.display = 'none';
+  levelBox.style.display = 'flex';
+  run = false;
+  pauseResetMenu.style.display = 'none';
+}
+
 
 function startGame() {
-  // TODO: load level
+  level = getCurrentLevel(currentLevel-1);
+  startNewLevel();
   pauseResetMenu.style.display = 'flex';
   run = true;
   menu.style.display = 'none';
@@ -96,7 +102,7 @@ function setup() {
       randomPos.push({pos: pos, opacity: random(255), size: random(5)});
     }
 
-    helper = new Planet(createVector(200, 200), createVector(0,0), 80, planetImg[2], "helper");
+    helper = new Planet(createVector(400, 400), createVector(0,0), 80, planetImg[2], "helper");
     earth = new Planet(createVector(800, 400), createVector(0,0), 80, earthImg, "earth");
 
     planets.push(helper);
@@ -108,9 +114,28 @@ function setup() {
     noLoop();
 
   }
+
+function startNewLevel() {
+
+  console.log(level);
+
+  planets = [];
+
+  helper = new Planet(level.helper.pos, createVector(0,0), level.helper.r, planetImg[2], "helper");
+  earth = new Planet(level.earthPos, createVector(0,0), 80, earthImg, "earth");
+
+  planets.push(helper);
+  level.planets.forEach(planet => {
+    let randomIndex =Math.floor(random(3))
+    planets.push(new Planet(planet.pos, createVector(0,0), planet.r, planetImg[randomIndex], planet.type));
+  })
+  planets.push(earth)
+
+  // console.log(planets);
+  astronaut = new Astronaut(astronautImg, level.astronautPos, 0.0003);
+}
   
 function draw() {
-    console.log(run);
 
     background(10);
 
@@ -121,7 +146,10 @@ function draw() {
     if (astronaut.poisonous === 0) {
       astronaut.drawTrace(planets);
     }
-    planets.forEach(planet => planet.draw(astronaut))
+    planets.forEach(planet => {
+      console.log(planet.pos)
+      planet.draw(astronaut)
+    })
     if (astronaut.poisonous === 0) {
       helper.update();
     }
