@@ -60,7 +60,7 @@ class Planet {
 
             planets.forEach(otherPlanet => {
                 if(otherPlanet.type != "helper" && this.detectPlanetCollison(otherPlanet)) {
-                    this.handlePlanetCollision(otherPlanet, newMouse);
+                    this.handlePlanetCollision(otherPlanet, newMouse, planets);
                 }
             })
 
@@ -126,7 +126,7 @@ class Planet {
     }
 
 
-    handlePlanetCollision(planet, newMouse) {
+    handlePlanetCollision(planet, newMouse, planets) {
 
         // console.log("coll");
         
@@ -137,6 +137,18 @@ class Planet {
                 alert("YOU! The destroyer of earth");
             } else if(planet.type === "splitter") {
                 //split function
+            } else if(planet.type === "increase") {
+                this.r += planet.r/3;
+                this.removeObjectFromArray(planets, planet);
+            } else if(planet.type === "decrease") {
+                this.r -= planet.r/3;
+                this.removeObjectFromArray(planets, planet);
+            } else if(planet.type === "speedup") {
+                this.vel += (planet.r*100) ;
+                this.removeObjectFromArray(planets, planet);
+            }  else if(planet.type === "speedDown") {
+                this.vel -= (planet.r);
+                this.removeObjectFromArray(planets, planet);
             } else {
 
                 let dispVec = p5.Vector.sub(this.pos, planet.pos);
@@ -171,4 +183,11 @@ class Planet {
     calculateLineValue(slope, yIntercept, pos) {
         return slope*pos.x + yIntercept - pos.y;
     }
+
+    removeObjectFromArray(objects, objectToRemove) {
+        let index = objects.indexOf(objectToRemove); // Find the index of the object in the array
+        if (index !== -1) {
+          objects.splice(index, 1); // Remove the object from the array
+        }
+      }
 }
