@@ -160,7 +160,7 @@ function draw() {
       planet.draw(astronaut)
     })
     if (astronaut.poisonous === 0) {
-      helper.update();
+      helper.update(planets);
     }
     astronaut.draw();
 
