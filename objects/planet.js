@@ -15,6 +15,8 @@ class Planet {
             this.img = poisonImg;
         } else if (this.type === 'increase') {
             this.img = plusPlanetImg;
+        } else if (this.type === 'decrease') {
+            this.img = minusPlanetImg;
         }
     }
 
@@ -57,6 +59,10 @@ class Planet {
             let size = min(this.r - 10, 20);
             image(plusImg, this.pos.x - size/2, this.pos.y - size/2, size, size);
         }
+        if (this.type === "decrease") {
+            let size = min(this.r - 10, 20);
+            image(minusImg, this.pos.x - size/2, this.pos.y - size/2, size, size);
+        }
         noStroke();
         noFill();
         circle(this.pos.x, this.pos.y, this.r);
@@ -91,7 +97,7 @@ class Planet {
                     let d = dist(planet.pos.x, planet.pos.y, this.pos.x, this.pos.y);
                     if (2*d < this.r + planet.r) {
                         let pushForce = p5.Vector.sub(this.pos, planet.pos);
-                        this.acc.add(p5.Vector.mult(pushForce, 0.2));
+                        this.acc.add(p5.Vector.mult(pushForce, 0.1));
                         this.handlePlanetCollision(planet);
                     }
                 }

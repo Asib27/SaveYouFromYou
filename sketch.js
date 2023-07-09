@@ -9,6 +9,8 @@ let poisonImg;
 let helperImg;
 let plusImg;
 let plusPlanetImg;
+let minusImg;
+let minusPlanetImg;
 let totalPlanetImage = 7;
 
 // sounds
@@ -127,13 +129,6 @@ function preload() {
   helperImg = loadImage('./assets/helper.png');
   plusImg = loadImage('./assets/plus.png');
   plusPlanetImg = loadImage('./assets/plusPlanet.png');
-  bgSound = loadSound('./assets/sounds/bg3.mp3');
-  astronautBounceSound = loadSound('./assets/sounds/astronautBounce2.mp3');
-  bounceSound = loadSound('./assets/sounds/bounce.wav');
-  gulpSound = loadSound('./assets/sounds/gulp2.mp3')
-  winSound = loadSound('./assets/sounds/win2.mp3')
-  failedSound = loadSound('./assets/sounds/failed.mp3')
-  clickSound = loadSound('./assets/sounds/click.mp3')
 }
 
 function setup() {
@@ -216,6 +211,7 @@ function draw() {
 
     if (life <= 0) {
       if (astronaut.poison === 0) notiText = "You lost!!"
+      showNotification()
       astronaut.poisonous+=5;
     }
 
