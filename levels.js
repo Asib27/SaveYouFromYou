@@ -102,7 +102,87 @@ const getCurrentLevel = (index) => {
     earthPos: createVector(1000, 500),
     helper: {pos: createVector(450, 50), r: 80 },
   },
- 
+  {
+    id: 8, 
+    astronautPos: createVector(20,20),
+    planets: [
+      {pos: createVector(150, 170), type: "lessBumpy", r: 30},
+      {pos: createVector(200, 140), type: "lessBumpy", r: 35},
+      {pos: createVector(240, 80), type: "lessBumpy", r: 35},
+      {pos: createVector(280, 30), type: "lessBumpy", r: 30},
+      {pos: createVector(310, 20), type: "lessBumpy", r: 30},
+      {pos: createVector(350, 10), type: "lessBumpy", r: 30},
+
+
+
+      {pos: createVector(20, 400), type: "lessBumpy", r: 30},
+      {pos: createVector(53, 400), type: "lessBumpy", r: 30},
+      {pos: createVector(86, 400), type: "lessBumpy", r: 30},
+      {pos: createVector(120, 400), type: "lessBumpy", r: 30},
+      {pos: createVector(160, 400), type: "lessBumpy", r: 30},
+      {pos: createVector(195, 360), type: "lessBumpy", r: 35},
+
+      {pos: createVector(235, 300), type: "lessBumpy", r: 35},
+      {pos: createVector(280, 250), type: "lessBumpy", r: 33},
+      {pos: createVector(320, 240), type: "lessBumpy", r: 30},
+      {pos: createVector(350, 210), type: "lessBumpy", r: 30},
+      {pos: createVector(380, 180), type: "lessBumpy", r: 35},
+      {pos: createVector(415, 180), type: "lessBumpy", r: 30},
+      {pos: createVector(450, 150), type: "lessBumpy", r: 35},
+      {pos: createVector(500, 150), type: "lessBumpy", r: 30},
+
+      {pos: createVector(550, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(590, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(630, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(670, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(720, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(770, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(820, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(870, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(920, 150), type: "lessBumpy", r: 30},
+      {pos: createVector(960, 169), type: "lessBumpy", r: 30},
+
+      {pos: createVector(1000, 190), type: "lessBumpy", r: 35},
+      {pos: createVector(1040, 230), type: "lessBumpy", r: 30},
+      {pos: createVector(1040, 270), type: "lessBumpy", r: 30},
+      {pos: createVector(1040, 320), type: "lessBumpy", r: 35},
+      {pos: createVector(1040, 370), type: "lessBumpy", r: 30},
+      {pos: createVector(1040, 400), type: "lessBumpy", r: 30},
+      {pos: createVector(1040, 440), type: "lessBumpy", r: 30},
+      {pos: createVector(1040, 480), type: "lessBumpy", r: 30},
+
+      {pos: createVector(1000, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(960, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(910, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(870, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(820, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(960, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(910, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(870, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(820, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(780, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(750, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(710, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(670, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(620, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(580, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(530, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(490, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(450, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(410, 480), type: "lessBumpy", r: 35},
+      {pos: createVector(370, 480), type: "lessBumpy", r: 30},
+      {pos: createVector(320, 480), type: "lessBumpy", r: 35},
+
+
+      {pos: createVector(700, 220), type: "poisonous", r: 50},
+      {pos: createVector(1100, 50), type: "increase", r: 50},
+
+
+      
+    ],
+    earthPos: createVector(900, 300),
+    helper: {pos: createVector(90, 300), r: 80 },
+  },
 ];
 
   return levels[index];

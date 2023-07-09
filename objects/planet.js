@@ -124,7 +124,21 @@ class Planet {
             astronaut.vel = createVector(0,0);
             if (astronaut.poisonous === 0) notiText = "Dumb human! You bumped a poisonous planet!"
             astronaut.poisonous += 5;
-        } else{
+        } else if(this.type == "lessBumpy") {
+
+            life -= .3;
+
+            if (life <= 0) life = 0;
+
+            if(astronaut.vel.mag() < 1) {
+                astronaut.vel.mult(-1.3);
+            } else{
+                astronaut.vel.mult(-0.5);
+                // console.log(astronaut.vel.mag());
+            }
+
+            astronaut.a = createVector(0, 0);
+        } else {
             life -= 20;
             if (life <= 0) life = 0;
             astronaut.vel.mult(-1);
