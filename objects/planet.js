@@ -109,6 +109,8 @@ class Planet {
         }
 
         if(this.type === "earth"){
+            winSound.setVolume(1, 0);
+            winSound.play();
             astronaut.vel = createVector(0,0);
             if (astronaut.poisonous === 0) {
                 notiText = "Congrats human! You have returned safely!"
@@ -120,10 +122,14 @@ class Planet {
             astronaut.vel = createVector(0,0);
             if (astronaut.poisonous === 0) notiText = "Sorry human, I help you but I have poison. Don't touch me!"
             astronaut.poisonous += 5;
+            failedSound.setVolume(1, 0);
+            failedSound.play()
         } else if(this.type == "poisonous"){
             astronaut.vel = createVector(0,0);
             if (astronaut.poisonous === 0) notiText = "Dumb human! You bumped a poisonous planet!"
             astronaut.poisonous += 5;
+            failedSound.setVolume(1, 0);
+            failedSound.play()
         } else if(this.type == "lessBumpy") {
 
             life -= .3;
@@ -137,8 +143,11 @@ class Planet {
                 // console.log(astronaut.vel.mag());
             }
 
+            astronautBounceSound.play();
+
             astronaut.a = createVector(0, 0);
         } else {
+            astronautBounceSound.play();
             life -= 20;
             if (life <= 0) life = 0;
             astronaut.vel.mult(-1);
@@ -162,16 +171,20 @@ class Planet {
                 let radius = sqrt(area / PI);
                 this.r = radius;
                 this.removeObjectFromArray(planets, planet);
+                gulpSound.play();
             } else if(planet.type === "decrease") {
                 this.r -= planet.r/3;
                 this.removeObjectFromArray(planets, planet);
+                gulpSound.play();
             } else if(planet.type === "speedup") {
                 // this.vel += (planet.r*100) ;
                 // this.removeObjectFromArray(planets, planet);
             }  else if(planet.type === "speedDown") {
                 // this.vel -= (planet.r);
                 // this.removeObjectFromArray(planets, planet);
-            } 
+            } else {
+                bounceSound.play();
+            }
 
         }
     }

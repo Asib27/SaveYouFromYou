@@ -11,6 +11,15 @@ let plusImg;
 let plusPlanetImg;
 let totalPlanetImage = 7;
 
+// sounds
+let bgSound;
+let astronautBounceSound;
+let bounceSound;
+let gulpSound;
+let winSound;
+let failedSound;
+let clickSound;
+
 // characters
 let planets = [];
 let astronaut;
@@ -67,6 +76,7 @@ notificationBtn.addEventListener('click', () => {
   handleResetBtn();
 })
 
+
 pauseBtn.addEventListener('click', () => {
   pauseMenu = true;
   menu.style.display = 'flex';
@@ -117,6 +127,13 @@ function preload() {
   helperImg = loadImage('./assets/helper.png');
   plusImg = loadImage('./assets/plus.png');
   plusPlanetImg = loadImage('./assets/plusPlanet.png');
+  bgSound = loadSound('./assets/sounds/bg3.mp3');
+  astronautBounceSound = loadSound('./assets/sounds/astronautBounce2.mp3');
+  bounceSound = loadSound('./assets/sounds/bounce.wav');
+  gulpSound = loadSound('./assets/sounds/gulp2.mp3')
+  winSound = loadSound('./assets/sounds/win2.mp3')
+  failedSound = loadSound('./assets/sounds/failed.mp3')
+  clickSound = loadSound('./assets/sounds/click.mp3')
 }
 
 function setup() {
@@ -136,13 +153,23 @@ function setup() {
     planets.push(earth)
     astronaut = new Astronaut(astronautImg, createVector(150, 450), 0.0003);
 
-    noLoop();
+    // noLoop();
+
+    bgSound.loop();
+    bgSound.setVolume(0);
+
+    bounceSound.setVolume(0.3);
 
   }
 
 function startNewLevel() {
   life = 200;
   planets = [];
+
+  bgSound.play();
+  bgSound.setVolume(0.5, 0);
+  failedSound.setVolume(0, 0.2);
+  winSound.setVolume(0, 0.2);
 
   helper = new Planet(level.helper.pos, createVector(0,0), level.helper.r, helperImg, "helper");
   let earthRadius = level.earthRad;
@@ -163,6 +190,9 @@ function startNewLevel() {
 function draw() {
     background(10);
     drawbg();
+
+    if (run) 
+      bgSound.setVolume(max(0.2, p5.Vector.mag(astronaut.vel)/astronaut.maxVel), 0.2)
 
     if (astronaut.poisonous === 0) {
       astronaut.drawTrace(planets);
@@ -190,6 +220,7 @@ function draw() {
     }
 
     if (astronaut.poisonous > 0) {
+      bgSound.setVolume(0, 1)
       pauseResetMenu.style.display = 'none';
       showNotification();
     }
@@ -238,4 +269,8 @@ function showNotification() {
   notificationText.innerText = notiText;
   notificationBtn.style.display = 'block';
   menu.style.display = 'none';
+}
+
+function mousePressed() {
+  clickSound.play();
 }
