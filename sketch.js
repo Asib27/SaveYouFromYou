@@ -9,6 +9,8 @@ let poisonImg;
 let helperImg;
 let plusImg;
 let plusPlanetImg;
+let minusImg;
+let minusPlanetImg;
 let totalPlanetImage = 7;
 
 // characters
@@ -117,6 +119,8 @@ function preload() {
   helperImg = loadImage('./assets/helper.png');
   plusImg = loadImage('./assets/plus.png');
   plusPlanetImg = loadImage('./assets/plusPlanet.png');
+  minusImg = loadImage('./assets/minus.png');
+  minusPlanetImg = loadImage('./assets/minusPlanet.png');
 }
 
 function setup() {
@@ -163,7 +167,7 @@ function startNewLevel() {
 }
   
 function draw() {
-
+    console.log(frameRate())
     background(10);
     drawbg();
 
@@ -192,6 +196,7 @@ function draw() {
 
     if (life <= 0) {
       if (astronaut.poison === 0) notiText = "You lost!!"
+      showNotification()
       astronaut.poisonous+=5;
     }
 
