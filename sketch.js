@@ -88,6 +88,7 @@ continueBtn.addEventListener('click', () => {
 })
 
 function handleResetBtn() {
+  notiText = "";
   menu.style.display = 'flex';
   pauseMenuBox.style.display = 'none';
   levelBox.style.display = 'flex';
@@ -142,7 +143,6 @@ function setup() {
 function startNewLevel() {
 
   life = 200;
-
   planets = [];
 
   helper = new Planet(level.helper.pos, createVector(0,0), level.helper.r, helperImg, "helper");
@@ -188,11 +188,12 @@ function draw() {
     helper.update(planets);
 
     if (life <= 0) {
+      if (astronaut.poison === 0) notiText = "You lost!!"
       astronaut.poisonous+=5;
-      notiText = "You lost!!"
     }
 
     if (astronaut.poisonous > 0) {
+      pauseResetMenu.style.display = 'none';
       showNotification();
     }
 

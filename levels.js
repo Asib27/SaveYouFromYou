@@ -75,10 +75,6 @@ const getCurrentLevel = (index) => {
       {pos: createVector(600, 180), type: "", r: 80},
       {pos: createVector(700, 90), type: "", r: 100},
 
-
-
-     
-
       {pos: createVector(500, 100), type: "decrease", r: 40},
       {pos: createVector(100, 500), type: "increase", r: 55},
 
@@ -86,6 +82,25 @@ const getCurrentLevel = (index) => {
     ],
     earthPos: createVector(1000, 500),
     helper: {pos: createVector(300, 50), r: 87 },
+  },
+  {
+    id: 7, 
+    astronautPos: createVector(100,250),
+    planets: [
+      {pos: createVector(200, 150), type: "", r: 60},
+      {pos: createVector(300, 50), type: "", r: 70},
+      {pos: createVector(800, 300), type: "", r: 90},
+      {pos: createVector(300, 500), type: "", r: 40},
+      {pos: createVector(200, 400), type: "", r: 50},
+      {pos: createVector(300, 300), type: "poisonous", r: 60},
+      {pos: createVector(300, 200), type: "", r: 40},
+      {pos: createVector(900, 400), type: "poisonous", r: 40},
+      {pos: createVector(500, 450), type: "poisonous", r: 80},
+      {pos: createVector(600, 250), type: "increase", r: 60},
+
+    ],
+    earthPos: createVector(1000, 500),
+    helper: {pos: createVector(450, 50), r: 80 },
   },
  
 ];
