@@ -128,7 +128,16 @@ function preload() {
   poisonImg = loadImage('./assets/poison.png');
   helperImg = loadImage('./assets/helper.png');
   plusImg = loadImage('./assets/plus.png');
+  minusImg = loadImage('./assets/minus.png');
   plusPlanetImg = loadImage('./assets/plusPlanet.png');
+  minusPlanetImg = loadImage('./assets/minusPlanet.png');
+  bgSound = loadSound('./assets/sounds/bg3.mp3');
+  astronautBounceSound = loadSound('./assets/sounds/astronautBounce2.mp3');
+  bounceSound = loadSound('./assets/sounds/bounce.wav');
+  gulpSound = loadSound('./assets/sounds/gulp2.mp3')
+  winSound = loadSound('./assets/sounds/win2.mp3')
+  failedSound = loadSound('./assets/sounds/failed.mp3')
+  clickSound = loadSound('./assets/sounds/click.mp3')
 }
 
 function setup() {
