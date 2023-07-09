@@ -1,22 +1,16 @@
-Lost in Gravity
-Team QWERTY
- Avi Dewan
-Mohaiminul Islam
-Md Asib Rahman 
-Game Engine : p5js
+# Lost in Gravity
 
-Github link : Asib27/SaveYouFromYou
+## Team QWERTY
+**Game Engine** : p5js
 
-Installation instruction  :  None, can be played in browser
+**Installation instruction**  :  **None**, can be played **in browser**
 
+During a critical space mission to an mysterious planet, spaceship of out brace explorer crashed into the planet. Our genious explorer ejected at last moment and lost in outer space. Only hope left is the planet which can now be controled by our explorer. Our explorer tries to go near the planet but it was poisonous. As our explorer is very genius, he thought he can go back to earth using gravitation of the planet. But the control is very delicate, if the planet comes too close, our explorer will die. If the planet touches earth , posion will destroy entire human race. So, can our brave explorer can save themself or will become the enemy of own and entire earth? 
 
-During a critical space mission to an enigmatic living planet, a courageous astronaut from Earth becomes stranded in space. The living planet, with good intentions, endeavors to assist the astronaut in returning home. However, due to the presence of a toxic substance on its surface, any proximity between the astronaut and the living planet would result in the astronaut's demise. 
-
-You can control the movement of the living planet by moving your mouse. Utilize the planet's gravity to attract and pull the astronaut towards it. However, it's crucial to avoid any contact between the astronaut and the living planet, as it would result in the astronaut's demise. Guide the astronaut safely towards Earth by skillfully manipulating the living planet's gravitational pull. Exercise caution to prevent any collisions with Earth that could lead to the destruction of Earth.  Be careful, do not bring astronaut's demise trying to help.
-
-
-How to play : 
+## How to play : 
 Use mouse to move living planet.
+
+Don't touch astronaut or  earth.
 
 Avoid poisonous planet
 
@@ -24,7 +18,4 @@ Grab special planets to make the living planet smaller or bigger
 
 Bring the astronaut safely to the earth
 
-Don't touch astronaut or  earth.
-
 Bumping on planet or borders reduces life.
-
