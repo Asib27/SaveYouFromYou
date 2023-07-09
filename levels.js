@@ -73,7 +73,7 @@ const getCurrentLevel = (index) => {
       {pos: createVector(480, 190), type: "poisonous", r: 50},
 
       {pos: createVector(600, 220), type: "", r: 80},
-      {pos: createVector(700, 130), type: "", r: 100},
+      {pos: createVector(700, 105), type: "", r: 100},
 
       {pos: createVector(500, 140), type: "decrease", r: 40},
       {pos: createVector(100, 540), type: "increase", r: 65},
