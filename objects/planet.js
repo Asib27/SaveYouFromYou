@@ -109,19 +109,20 @@ class Planet {
 
         if(this.type === "earth"){
             astronaut.vel = createVector(0,0);
+            if (astronaut.poisonous === 0) {
+                notiText = "Congrats human! You have returned safely!"
+            }
             astronaut.poisonous += 5;
-            notiText = "Congrats human! You have returned safely!"
             // TODO: prompt 
         }
         else if(this.type == "helper"){
             astronaut.vel = createVector(0,0);
+            if (astronaut.poisonous === 0) notiText = "Sorry human, I help you but I have poison. Don't touch me!"
             astronaut.poisonous += 5;
-            notiText = "Sorry human, I help you but I have poison. Don't touch me!"
         } else if(this.type == "poisonous"){
             astronaut.vel = createVector(0,0);
+            if (astronaut.poisonous === 0) notiText = "Dumb human! You bumped a poisonous planet!"
             astronaut.poisonous += 5;
-            
-            notiText = "Dumb human! You bumped a poisonous planet!"
         } else{
             life -= 20;
             if (life <= 0) life = 0;
@@ -146,15 +147,15 @@ class Planet {
             
             if(planet.type === "earth") {
                 astronaut.vel = createVector(0,0);
+                if (astronaut.poisonous === 0) notiText = "Sorry little human, I destroyed your earth.";
                 astronaut.poisonous += 5;
-                notiText = "Sorry little human, I destroyed your earth.";
                 showNotification();
             } else if(planet.type === "splitter") {
                 //split function
             } else if(planet.type === "increase") {
                 let area = PI*this.r*this.r + PI*planet.r*planet.r;
                 let radius = sqrt(area / PI);
-                this.r += radius;
+                this.r = radius;
                 this.removeObjectFromArray(planets, planet);
             } else if(planet.type === "decrease") {
                 this.r -= planet.r/3;

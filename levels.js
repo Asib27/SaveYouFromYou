@@ -27,18 +27,18 @@ const getCurrentLevel = (index) => {
       {pos: createVector(950, 170), type: "", r: 80},  
     ],
     earthPos: createVector(900, 400),
-    helper: {pos: createVector(300, 300), r: 80 },
+    helper: {pos: createVector(250, 250), r: 80 },
   },
   {
     id: 4, 
     astronautPos: createVector(1000,100),
     planets: [
       {pos: createVector(400, 400), type: "", r: 120},
-      {pos: createVector(550, 360), type: "increase", r: 40},
+      {pos: createVector(550, 360), type: "increase", r: 70},
       {pos: createVector(650, 250), type: "poisonous", r: 40},
     ],
     earthPos: createVector(1000, 500),
-    helper: {pos: createVector(450, 50), r: 50 },
+    helper: {pos: createVector(450, 50), r: 80 },
   },
   {
     id: 5, 
