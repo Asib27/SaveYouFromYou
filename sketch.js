@@ -146,7 +146,10 @@ function startNewLevel() {
   planets = [];
 
   helper = new Planet(level.helper.pos, createVector(0,0), level.helper.r, helperImg, "helper");
-  earth = new Planet(level.earthPos, createVector(0,0), 80, earthImg, "earth");
+  let earthRadius = level.earthRad;
+  console.log(level)
+  if (earthRadius === undefined) earthRadius = 80;
+  earth = new Planet(level.earthPos, createVector(0,0), earthRadius, earthImg, "earth");
 
   planets.push(helper);
   level.planets.forEach(planet => {

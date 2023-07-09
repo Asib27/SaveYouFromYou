@@ -181,6 +181,7 @@ const getCurrentLevel = (index) => {
       
     ],
     earthPos: createVector(900, 300),
+    earthRad: 40,
     helper: {pos: createVector(90, 300), r: 80 },
   },
 ];
