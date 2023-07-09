@@ -56,32 +56,32 @@ const getCurrentLevel = (index) => {
   },
   {
     id: 6, 
-    astronautPos: createVector(20,200),
+    astronautPos: createVector(20,230),
     planets: [
-      {pos: createVector(50, 130), type: "poisonous", r: 50},
-      {pos: createVector(50, 300), type: "poisonous", r: 50},
-      {pos: createVector(120, 310), type: "poisonous", r: 50},
-      {pos: createVector(130, 125), type: "poisonous", r: 30},  
-      {pos: createVector(200, 100), type: "poisonous", r: 55},
-      {pos: createVector(200, 330), type: "poisonous", r: 50},
-      {pos: createVector(335, 130), type: "poisonous", r: 50},
-      {pos: createVector(330, 400), type: "poisonous", r: 50},
+      {pos: createVector(50, 170), type: "poisonous", r: 50},
+      {pos: createVector(50, 340), type: "poisonous", r: 50},
+      {pos: createVector(120, 350), type: "poisonous", r: 50},
+      {pos: createVector(130, 175), type: "poisonous", r: 30},  
+      {pos: createVector(200, 150), type: "poisonous", r: 55},
+      {pos: createVector(200, 370), type: "poisonous", r: 50},
+      {pos: createVector(335, 170), type: "poisonous", r: 50},
+      {pos: createVector(330, 440), type: "poisonous", r: 50},
 
-      {pos: createVector(400, 130), type: "poisonous", r: 50},
-      {pos: createVector(400, 400), type: "poisonous", r: 50},
+      {pos: createVector(400, 170), type: "poisonous", r: 50},
+      {pos: createVector(400, 440), type: "poisonous", r: 50},
 
-      {pos: createVector(480, 150), type: "poisonous", r: 50},
+      {pos: createVector(480, 190), type: "poisonous", r: 50},
 
-      {pos: createVector(600, 180), type: "", r: 80},
-      {pos: createVector(700, 90), type: "", r: 100},
+      {pos: createVector(600, 220), type: "", r: 80},
+      {pos: createVector(700, 130), type: "", r: 100},
 
-      {pos: createVector(500, 100), type: "decrease", r: 40},
-      {pos: createVector(100, 500), type: "increase", r: 65},
+      {pos: createVector(500, 140), type: "decrease", r: 40},
+      {pos: createVector(100, 540), type: "increase", r: 65},
 
 
     ],
-    earthPos: createVector(1000, 500),
-    helper: {pos: createVector(300, 50), r: 87 },
+    earthPos: createVector(1000, 530),
+    helper: {pos: createVector(300, 80), r: 87 },
   },
   {
     id: 7, 
