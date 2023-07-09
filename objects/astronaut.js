@@ -102,7 +102,7 @@ class Astronaut {
                 strokeWeight(2);
 
                 let opacity = min(2, p5.Vector.mag(force))*120;
-                let strokeWidth = min(2, p5.Vector.mag(force))*2;
+                let strokeWidth = min(2, p5.Vector.mag(force))*3.5;
                 strokeWeight(strokeWidth);
 
                 if (planet.type === "earth") {

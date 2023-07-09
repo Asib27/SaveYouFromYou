@@ -145,13 +145,12 @@ function setup() {
   }
 
 function startNewLevel() {
-
   life = 200;
   planets = [];
 
   helper = new Planet(level.helper.pos, createVector(0,0), level.helper.r, helperImg, "helper");
   let earthRadius = level.earthRad;
-  console.log(level)
+  
   if (earthRadius === undefined) earthRadius = 80;
   earth = new Planet(level.earthPos, createVector(0,0), earthRadius, earthImg, "earth");
 
@@ -162,17 +161,16 @@ function startNewLevel() {
   })
   planets.push(earth)
 
-  // console.log(planets);
   astronaut = new Astronaut(astronautImg, level.astronautPos, 0.0003);
 }
   
 function draw() {
+<<<<<<< HEAD
     console.log(frameRate())
+=======
+>>>>>>> c0cee2838f5807dc1e160614bb5a9de5cfd6dd0c
     background(10);
     drawbg();
-
-
-    // helper.pos = createVector(mouseX, mouseY);
 
     if (astronaut.poisonous === 0) {
       astronaut.drawTrace(planets);
@@ -232,13 +230,14 @@ function drawbg() {
     stroke(interColor);
     strokeWeight(1);
     circle(star.pos.x, star.pos.y, random(3));
-  
-    strokeWeight(6);
-    stroke(80, 80, 120, 200);
-    noFill()
-    drawingContext.setLineDash([5, 10, 30, 10]);
-    rect(0,0, width, height);
+    
   })
+
+  strokeWeight(6);
+  stroke(80, 80, 120, 200);
+  noFill()
+  drawingContext.setLineDash([5, 10, 30, 10]);
+  rect(0,0, width, height);
 }
 
 function showNotification() {
