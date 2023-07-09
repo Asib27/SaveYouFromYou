@@ -165,10 +165,6 @@ function startNewLevel() {
 }
   
 function draw() {
-<<<<<<< HEAD
-    console.log(frameRate())
-=======
->>>>>>> c0cee2838f5807dc1e160614bb5a9de5cfd6dd0c
     background(10);
     drawbg();
 
