@@ -141,6 +141,4 @@ class Astronaut {
         return forceVector;
     }
 
-    
-
 }

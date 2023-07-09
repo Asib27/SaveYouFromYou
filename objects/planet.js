@@ -9,6 +9,7 @@ class Planet {
         this.img = img;
         this.move = true;
         this.collidedLoopCount = false;
+        this.maxVel = 2;
 
         if (this.type === 'poisonous') {
             this.img = poisonImg;
@@ -64,42 +65,42 @@ class Planet {
     update(planets) {
 
         if(this.type === "helper"){
-            let newMouse = createVector(mouseX, mouseY);
-            let dispVect = p5.Vector.sub(newMouse, this.pos);
-            let mag = p5.Vector.mag(dispVect);
-            let disp = dispVect.normalize();
 
+            let displacement = p5.Vector.sub(createVector(mouseX, mouseY), this.pos);
 
+            if (p5.Vector.mag(displacement) < 10) {
+                displacement = createVector(0,0)
+                this.vel = createVector(0,0);
+            } else {
+                displacement.normalize();
+            }
             
-            planets.forEach(otherPlanet => {
-                if(otherPlanet.type !== "helper" && this.detectPlanetCollison(otherPlanet)) {
-                    this.handlePlanetCollision(otherPlanet, newMouse, planets);
-                    if(!this.collidedLoopCount){
-                        this.collidedLoopCount = true;
-                        // loopCount = 0;
+
+            this.acc = p5.Vector.mult(displacement, 0.5);
+
+            let vx = this.vel.x;
+            let vy = this.vel.y;        
+            if (vx > this.maxVel) vx = this.maxVel;
+            if (vy > this.maxVel) vy = this.maxVel;
+            if (vx < -this.maxVel) vx = -this.maxVel;
+            if (vy < -this.maxVel) vy = -this.maxVel;
+            this.vel = createVector(vx, vy);
+
+            planets.forEach(planet => {
+                if (planet.type !== "helper") {
+                    let d = dist(planet.pos.x, planet.pos.y, this.pos.x, this.pos.y);
+                    if (2*d < this.r + planet.r) {
+                        let pushForce = p5.Vector.sub(this.pos, planet.pos);
+                        this.acc.add(p5.Vector.mult(pushForce, 0.2));
+                        this.handlePlanetCollision(planet);
                     }
                 }
             })
 
-            if(mag >= 2){
-                this.vel = p5.Vector.mult(disp, 2);
-            }
-            else{
-                this.vel = p5.Vector.mult(disp, 0);
-            }
-
-            if(this.collidedLoopCount){
-                this.vel = p5.Vector.mult(disp, -4);
-            }
-
-            if(loopCount %500 === 0){
-                this.collidedLoopCount = false;
-            }
+            this.vel.add(this.acc);
+            this.pos.add(this.vel);
             
         }
-
-        this.pos.add( this.vel);
-        this.vel.add(this.acc);
     }
 
     handleCollision(astronaut){
@@ -131,24 +132,14 @@ class Planet {
         }
     }
 
-    detectPlanetCollison(planet) {
-
-        let dis = this.pos.dist(planet.pos);
-        let minDis = this.r/2 + planet.r/2;
-
-        if(dis <= minDis) return true;
-        return false;
-    }
-
-
-    handlePlanetCollision(planet, newMouse, planets) {
+    handlePlanetCollision(planet) {
 
         if(this.type === "helper") {
             
             if(planet.type === "earth") {
                 astronaut.vel = createVector(0,0);
                 if (astronaut.poisonous === 0) notiText = "Sorry little human, I destroyed your earth.";
-                astronaut.poisonous += 5;
+                astronaut.poisonous = 200;
                 showNotification();
             } else if(planet.type === "splitter") {
                 //split function
@@ -161,38 +152,12 @@ class Planet {
                 this.r -= planet.r/3;
                 this.removeObjectFromArray(planets, planet);
             } else if(planet.type === "speedup") {
-                this.vel += (planet.r*100) ;
-                this.removeObjectFromArray(planets, planet);
+                // this.vel += (planet.r*100) ;
+                // this.removeObjectFromArray(planets, planet);
             }  else if(planet.type === "speedDown") {
-                this.vel -= (planet.r);
-                this.removeObjectFromArray(planets, planet);
-            } else {
-
-                let dispVec = p5.Vector.sub(this.pos, planet.pos);
-                let newDisp = dispVec.normalize();
-
-                let collisionX = (this.pos.x * planet.r + planet.pos.x * this.r) / (this.r+ planet.r);
-                let collisionY = (this.pos.y * planet.r + planet.pos.y * this.r) / (this.r + planet.r);
-                
-                 // Calculate the tangent vector
-                let tangentVector = createVector(this.pos.y - planet.pos.y, planet.pos.x - this.pos.x);
-                tangentVector.normalize();
-
-                // the tangent line point
-                let tangentStartX = collisionX - tangentVector.x * 50;
-                let tangentStartY = collisionY - tangentVector.y * 50;
-                let tangentEndX = collisionX + tangentVector.x * 50;
-                let tangentEndY = collisionY + tangentVector.y * 50;
-                
-                let slope = (tangentEndY - tangentStartY) / (tangentEndX- tangentStartX);
-                let yIntercept = tangentStartY- slope * tangentStartX;
-
-                if(this.calculateLineValue(slope, yIntercept, planet.pos)*this.calculateLineValue(slope, yIntercept, newMouse) >= 0) { 
-                    this.move=false; 
-                } else {
-                    this.move=true;
-                }
-            }
+                // this.vel -= (planet.r);
+                // this.removeObjectFromArray(planets, planet);
+            } 
 
         }
     }
