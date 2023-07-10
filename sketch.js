@@ -53,7 +53,6 @@ const pauseMenuBox = document.getElementById('pauseMenu');
 const levelBox = document.getElementById('levelBox');
 const pauseResetMenu = document.getElementById('pauseReset');
 const notificationBox = document.getElementById('notification');
-const instructionBox = document.getElementById('instruction');
 
 const lvl1Btn = document.getElementById('lvl1');
 const lvl2Btn = document.getElementById('lvl2');
@@ -87,7 +86,6 @@ pauseBtn.addEventListener('click', () => {
   pauseMenuBox.style.display = 'flex';
   run = false;
   pauseResetMenu.style.display = 'none';
-  instructionBox.style.display = 'none';
 });
 
 resetBtn.addEventListener('click', () => {
@@ -98,7 +96,6 @@ continueBtn.addEventListener('click', () => {
   run = true;
   menu.style.display = 'none';
   pauseResetMenu.style.display = 'flex';
-  instructionBox.style.display = 'flex';
   draw();
 })
 
@@ -109,14 +106,12 @@ function handleResetBtn() {
   levelBox.style.display = 'flex';
   run = false;
   pauseResetMenu.style.display = 'none';
-  instructionBox.style.display = 'none';
 }
 
 function startGame() {
   level = getCurrentLevel(currentLevel-1);
   startNewLevel();
   pauseResetMenu.style.display = 'flex';
-  instructionBox.style.display = 'flex';
   run = true;
   menu.style.display = 'none';
   draw();
@@ -163,21 +158,19 @@ function setup() {
     astronaut = new Astronaut(astronautImg, createVector(150, 450), 0.0003);
 
     // noLoop();
-    
+
+    bgSound.loop();
     bgSound.setVolume(0);
 
-    bounceSound.setVolume(0.5);
+    bounceSound.setVolume(0.3);
 
   }
 
 function startNewLevel() {
-
-  instructionBox.innerHTML = level.instruction;
-
   life = 200;
   planets = [];
 
-  // bgSound.play();
+  bgSound.play();
   bgSound.setVolume(0.5, 0);
   failedSound.setVolume(0, 0.2);
   winSound.setVolume(0, 0.2);
@@ -202,9 +195,8 @@ function draw() {
     background(10);
     drawbg();
 
-    if (run) {
+    if (run) 
       bgSound.setVolume(max(0.2, p5.Vector.mag(astronaut.vel)/astronaut.maxVel), 0.2)
-    }
 
     if (astronaut.poisonous === 0) {
       astronaut.drawTrace(planets);
@@ -235,14 +227,7 @@ function draw() {
     if (astronaut.poisonous > 0) {
       bgSound.setVolume(0, 1)
       pauseResetMenu.style.display = 'none';
-      instructionBox.style.display = 'none';
       showNotification();
-
-      if (notiText === '') {
-        menu.style.display = 'none';
-        notificationBox.style.display = 'none';
-        handleResetBtn();
-      }
     }
 
     if (astronaut.poisonous >= 255) {
@@ -293,10 +278,4 @@ function showNotification() {
 
 function mousePressed() {
   clickSound.play();
-
-  if (astronaut.poisonous < 200) {
-    bgSound.loop();
-  } else {
-    bgSound.stop();
-  }
 }

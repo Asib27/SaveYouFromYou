@@ -119,20 +119,20 @@ class Planet {
             winSound.play();
             astronaut.vel = createVector(0,0);
             if (astronaut.poisonous === 0) {
-                notiText = "Congrats human! You have returned safely!"
+                notiText = "Congrats! You returned yourself home safely!"
             }
             astronaut.poisonous += 5;
             // TODO: prompt 
         }
         else if(this.type == "helper"){
             astronaut.vel = createVector(0,0);
-            if (astronaut.poisonous === 0) notiText = "Sorry human, I help you but I have poison. Don't touch me!"
+            if (astronaut.poisonous === 0) notiText = "Nooo! Don't kill yourself like that !! Be aware of yourself and your controlled planet"
             astronaut.poisonous += 5;
             failedSound.setVolume(1, 0);
             failedSound.play()
         } else if(this.type == "poisonous"){
             astronaut.vel = createVector(0,0);
-            if (astronaut.poisonous === 0) notiText = "Dumb human! You bumped a poisonous planet!"
+            if (astronaut.poisonous === 0) notiText = "Dead ! You bumped yourself into a poisonous planet!"
             astronaut.poisonous += 5;
             failedSound.setVolume(1, 0);
             failedSound.play()
@@ -167,7 +167,7 @@ class Planet {
             
             if(planet.type === "earth") {
                 astronaut.vel = createVector(0,0);
-                if (astronaut.poisonous === 0) notiText = "Sorry little human, I destroyed your earth.";
+                if (astronaut.poisonous === 0) notiText = "You just destroyed earth. Why'd you do that !!!!";
                 astronaut.poisonous = 200;
                 showNotification();
                 failedSound.setVolume(1, 0);
