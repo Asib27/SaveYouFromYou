@@ -170,6 +170,8 @@ class Planet {
                 if (astronaut.poisonous === 0) notiText = "Sorry little human, I destroyed your earth.";
                 astronaut.poisonous = 200;
                 showNotification();
+                failedSound.setVolume(1, 0);
+            failedSound.play()
             } else if(planet.type === "splitter") {
                 //split function
             } else if(planet.type === "increase") {

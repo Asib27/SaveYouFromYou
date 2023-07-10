@@ -158,11 +158,10 @@ function setup() {
     astronaut = new Astronaut(astronautImg, createVector(150, 450), 0.0003);
 
     // noLoop();
-
-    bgSound.loop();
+    
     bgSound.setVolume(0);
 
-    bounceSound.setVolume(0.3);
+    bounceSound.setVolume(0.5);
 
   }
 
@@ -170,7 +169,7 @@ function startNewLevel() {
   life = 200;
   planets = [];
 
-  bgSound.play();
+  // bgSound.play();
   bgSound.setVolume(0.5, 0);
   failedSound.setVolume(0, 0.2);
   winSound.setVolume(0, 0.2);
@@ -195,8 +194,9 @@ function draw() {
     background(10);
     drawbg();
 
-    if (run) 
+    if (run) {
       bgSound.setVolume(max(0.2, p5.Vector.mag(astronaut.vel)/astronaut.maxVel), 0.2)
+    }
 
     if (astronaut.poisonous === 0) {
       astronaut.drawTrace(planets);
@@ -278,4 +278,10 @@ function showNotification() {
 
 function mousePressed() {
   clickSound.play();
+
+  if (astronaut.poisonous < 200) {
+    bgSound.loop();
+  } else {
+    bgSound.stop();
+  }
 }
