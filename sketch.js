@@ -237,6 +237,12 @@ function draw() {
       pauseResetMenu.style.display = 'none';
       instructionBox.style.display = 'none';
       showNotification();
+
+      if (notiText === '') {
+        menu.style.display = 'none';
+        notificationBox.style.display = 'none';
+        handleResetBtn();
+      }
     }
 
     if (astronaut.poisonous >= 255) {
