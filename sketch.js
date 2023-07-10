@@ -219,9 +219,11 @@ function draw() {
     helper.update(planets);
 
     if (life <= 0) {
-      if (astronaut.poison === 0) notiText = "You lost!!"
-      showNotification()
-      astronaut.poisonous+=5;
+      astronaut.vel = createVector(0,0);
+      notiText = "You are not hulk!!"
+      astronaut.poisonous += 5;
+      failedSound.setVolume(1, 0);
+      failedSound.play();
     }
 
     if (astronaut.poisonous > 0) {

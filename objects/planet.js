@@ -126,7 +126,7 @@ class Planet {
         }
         else if(this.type == "helper"){
             astronaut.vel = createVector(0,0);
-            if (astronaut.poisonous === 0) notiText = "Nooo! Don't kill yourself like that !! Be aware of yourself and your controlled planet"
+            if (astronaut.poisonous === 0) notiText = "Nooo! Don't kill yourself like that !! The planet is poisonous"
             astronaut.poisonous += 5;
             failedSound.setVolume(1, 0);
             failedSound.play()
