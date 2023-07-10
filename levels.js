@@ -1,3 +1,13 @@
+const style = `overflow: hidden;
+border-right: .15em solid gray;
+white-space: nowrap;
+margin: 0 auto;
+letter-spacing: .1em;
+animation: 
+  typing 3s steps(40, end),
+  blink-caret .75s step-end infinite;`
+const className = `flex items-center justify-left font-bold text-lg`
+
 const getCurrentLevel = (index) => { 
   const levels = [
   { 
@@ -6,6 +16,7 @@ const getCurrentLevel = (index) => {
     planets: [],
     earthPos: createVector(1000, 400),
     helper: {pos: createVector(300, 500), r: 80 },
+    instruction: `<p class="flex font-bold text-lg" style="${style}">Move your mouse to pull yourself.</p>`
   },
   { 
     id: 2,
@@ -16,6 +27,7 @@ const getCurrentLevel = (index) => {
     ],
     earthPos: createVector(900, 400),
     helper: {pos: createVector(300, 450), r: 80 },
+    instruction: `<p class="${className}" style="${style}">Avoid the poisonous planet. <span class-"inline"><img src="./assets/poison.png" width="30px"/></span></p>`
   },
   { 
     id: 3,
@@ -28,6 +40,7 @@ const getCurrentLevel = (index) => {
     ],
     earthPos: createVector(900, 400),
     helper: {pos: createVector(250, 250), r: 80 },
+    instruction: `<p class="${className}" style="${style}">Best of luck!</p>`
   },
   {
     id: 4, 
@@ -39,6 +52,7 @@ const getCurrentLevel = (index) => {
     ],
     earthPos: createVector(1000, 500),
     helper: {pos: createVector(450, 50), r: 80 },
+    instruction: `<p class="${className}" style="${style}">Touch the 'plus' planet to increase your gavitational pull. <span class-"inline"><img src="./assets/plus.png" width="20px"/></span></p>`
   },
   {
     id: 5, 
@@ -53,6 +67,7 @@ const getCurrentLevel = (index) => {
     ],
     earthPos: createVector(1000, 500),
     helper: {pos: createVector(450, 50), r: 80 },
+    instruction: `<p class="${className}" style="${style}">Best of luck</p>`
   },
   {
     id: 6, 
@@ -82,6 +97,7 @@ const getCurrentLevel = (index) => {
     ],
     earthPos: createVector(1000, 530),
     helper: {pos: createVector(300, 80), r: 87 },
+    instruction: `<p class="${className}" style="${style}">Touch the 'minus' planet to decrease your size. <span class-"inline"><img src="./assets/minus.png" width="20px"/></span></p>`
   },
   {
     id: 7, 
@@ -101,6 +117,7 @@ const getCurrentLevel = (index) => {
     ],
     earthPos: createVector(1000, 500),
     helper: {pos: createVector(450, 50), r: 80 },
+    instruction: `<p class="${className}" style="${style}">Remember, the bigger is not always the better.</p>`
   },
   {
     id: 8, 
@@ -183,6 +200,7 @@ const getCurrentLevel = (index) => {
     earthPos: createVector(900, 300),
     earthRad: 40,
     helper: {pos: createVector(90, 300), r: 80 },
+    instruction: `<p class="${className}" style="${style}">Can you complete the game?</p>`
   },
 ];
 

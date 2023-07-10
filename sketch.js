@@ -53,6 +53,7 @@ const pauseMenuBox = document.getElementById('pauseMenu');
 const levelBox = document.getElementById('levelBox');
 const pauseResetMenu = document.getElementById('pauseReset');
 const notificationBox = document.getElementById('notification');
+const instructionBox = document.getElementById('instruction');
 
 const lvl1Btn = document.getElementById('lvl1');
 const lvl2Btn = document.getElementById('lvl2');
@@ -86,6 +87,7 @@ pauseBtn.addEventListener('click', () => {
   pauseMenuBox.style.display = 'flex';
   run = false;
   pauseResetMenu.style.display = 'none';
+  instructionBox.style.display = 'none';
 });
 
 resetBtn.addEventListener('click', () => {
@@ -96,6 +98,7 @@ continueBtn.addEventListener('click', () => {
   run = true;
   menu.style.display = 'none';
   pauseResetMenu.style.display = 'flex';
+  instructionBox.style.display = 'flex';
   draw();
 })
 
@@ -106,12 +109,14 @@ function handleResetBtn() {
   levelBox.style.display = 'flex';
   run = false;
   pauseResetMenu.style.display = 'none';
+  instructionBox.style.display = 'none';
 }
 
 function startGame() {
   level = getCurrentLevel(currentLevel-1);
   startNewLevel();
   pauseResetMenu.style.display = 'flex';
+  instructionBox.style.display = 'flex';
   run = true;
   menu.style.display = 'none';
   draw();
@@ -166,6 +171,9 @@ function setup() {
   }
 
 function startNewLevel() {
+
+  instructionBox.innerHTML = level.instruction;
+
   life = 200;
   planets = [];
 
@@ -227,6 +235,7 @@ function draw() {
     if (astronaut.poisonous > 0) {
       bgSound.setVolume(0, 1)
       pauseResetMenu.style.display = 'none';
+      instructionBox.style.display = 'none';
       showNotification();
     }
 
